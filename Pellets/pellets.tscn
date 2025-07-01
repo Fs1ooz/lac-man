@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://w8egvs3k4ldl"]
+
+[node name="Pellets" type="Node"]
+
+[node name="Area2D" type="Area2D" parent="."]

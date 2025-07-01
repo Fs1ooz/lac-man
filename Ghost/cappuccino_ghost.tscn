@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cjcsjnamqt4ew"]
+
+[ext_resource type="Script" uid="uid://bhccg10naxdlc" path="res://Ghost/Cappuccino.gd" id="1_6g4mk"]
+
+[node name="Cappuccino" type="CharacterBody2D"]
+script = ExtResource("1_6g4mk")

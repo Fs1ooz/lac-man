@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://b0s2npxvc6fd2"]
+
+[ext_resource type="Script" uid="uid://bb1304as30iar" path="res://Pellets/super_pellet.gd" id="1_mohuy"]
+[ext_resource type="Texture2D" uid="uid://bxoirwqviqdcf" path="res://Pellets/Lattasi.png" id="2_mohuy"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mohuy"]
+radius = 4.0
+
+[node name="SuperPellet" type="Area2D"]
+script = ExtResource("1_mohuy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_mohuy")
+
+[node name="Lattasi" type="Sprite2D" parent="."]
+texture_filter = 6
+position = Vector2(2.98023e-08, 2.98023e-08)
+scale = Vector2(0.0276563, 0.0276563)
+texture = ExtResource("2_mohuy")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

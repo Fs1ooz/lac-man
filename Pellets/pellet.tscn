@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://canhegeaqtpru"]
+
+[ext_resource type="Script" uid="uid://bh8f65mc7d61d" path="res://Pellets/pellet.gd" id="1_2imoo"]
+[ext_resource type="Texture2D" uid="uid://cbkusf288aqjh" path="res://Pellets/pellets.png" id="1_tbe2t"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2imoo"]
+radius = 2.0
+
+[node name="Pellet" type="Area2D"]
+script = ExtResource("1_2imoo")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_2imoo")
+
+[node name="Pellets" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_tbe2t")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

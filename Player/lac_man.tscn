@@ -1,0 +1,71 @@
+[gd_scene load_steps=7 format=3 uid="uid://dvysmh1auixmn"]
+
+[ext_resource type="Script" uid="uid://dbooxwy65ajxt" path="res://Player/lac_man.gd" id="1_7yd3f"]
+[ext_resource type="AudioStream" uid="uid://da2ymxd7m5uir" path="res://Player/wakawaka.wav" id="2_j5jvn"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7yd3f"]
+radius = 11.8211
+
+[sub_resource type="Animation" id="Animation_j5jvn"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.5, 0.5)]
+}
+
+[sub_resource type="Animation" id="Animation_7yd3f"]
+resource_name = "death"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0666667, 0.866667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0.5, 0.5), Vector2(0.01, 0.01)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_j5jvn"]
+_data = {
+&"RESET": SubResource("Animation_j5jvn"),
+&"death": SubResource("Animation_7yd3f")
+}
+
+[node name="LacMan" type="CharacterBody2D" node_paths=PackedStringArray("collision", "animation_player") groups=["Player"]]
+scale = Vector2(0.5, 0.5)
+collision_mask = 3
+motion_mode = 1
+script = ExtResource("1_7yd3f")
+starting_scale = Vector2(0.5, 0.5)
+collision = NodePath("GiuliaCollision")
+animation_player = NodePath("AnimationPlayer")
+
+[node name="GiuliaCollision" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_7yd3f")
+
+[node name="GiuliaOpen" type="Polygon2D" parent="."]
+color = Color(0.905882, 0.792157, 0.0235294, 1)
+polygon = PackedVector2Array(8.09888, -6.03315, 6.34661, -4.9921, 4.96542, -6.31145, 4, -7, 2.96577, -7.49681, 1.95564, -7.82664, 0.801211, -8.00187, 0, -8, -1.97364, -7.77866, -3.87583, -7.01029, -5.12482, -6.10292, -6.15325, -5.12479, -6.8469, -4.04382, -7.50658, -2.55955, -7.89826, -0.94128, -7.94531, -0.0234375, -7.83594, 0.929688, -7.64058, 1.91388, -6.55829, 4.25367, -5.15648, 5.94409, -3.37329, 7.02637, -1.66226, 7.58297, 0.0178537, 7.73758, 1.65881, 7.57937, 3.39869, 7.03668, 5.14486, 5.91935, 6.90322, 3.82076, 7.60774, 2.27406, 7.96489, 0.883137, 0.0281594, 0.872831, 3.65638, -1.19896, 9.98514, -1.19897, 10, 1, 9.71094, 2.51563, 9.14495, 3.97648, 8.60938, 4.98438, 8, 6, 7, 7, 5.40625, 8.25781, 4, 9, 2.5, 9.58594, 0, 10, -2.51563, 9.61719, -4, 9, -5.5, 8.27344, -7, 7, -7.80612, 6.16602, -8.63281, 5.01563, -9.08882, 4.02258, -9.65625, 2.54688, -9.8798, 1.30942, -10, 0, -9.91072, -1.33959, -9.67969, -2.54688, -9.12485, -4.06443, -8.39844, -5.50781, -7.09375, -7.07813, -5.9375, -8.13281, -4.27344, -9.10156, -2.07813, -9.85156, 0, -10.0625, 1.39063, -10, 2.62069, -9.73401, 5, -9, 6.93413, -7.39373)
+
+[node name="GiuliaClosed" type="Polygon2D" parent="."]
+color = Color(0.905882, 0.792157, 0.0235294, 1)
+polygon = PackedVector2Array(9.90122, -1.22447, 8.06208, -1.22438, 7.91242, -2.54641, 7.22513, -4.11491, 6.38154, -5.15977, 4.96542, -6.31145, 4, -7, 2.96577, -7.49681, 1.95564, -7.82664, 0.801211, -8.00187, 0, -8, -1.97364, -7.77866, -3.87583, -7.01029, -5.12482, -6.10292, -6.15325, -5.12479, -6.8469, -4.04382, -7.50658, -2.55955, -7.89826, -0.94128, -7.94531, -0.0234375, -7.83594, 0.929688, -7.64058, 1.91388, -6.55829, 4.25367, -5.15648, 5.94409, -3.37329, 7.02637, -1.66226, 7.58297, 0.0178537, 7.73758, 1.65881, 7.57937, 3.39869, 7.03668, 5.14486, 5.91935, 6.90322, 3.82076, 7.60774, 2.27406, 7.96489, 0.883137, 0.0281594, 0.872831, 3.65638, -1.19896, 9.98514, -1.19897, 10, 1, 9.71094, 2.51563, 9.14495, 3.97648, 8.60938, 4.98438, 8, 6, 7, 7, 5.40625, 8.25781, 4, 9, 2.5, 9.58594, 0, 10, -2.51563, 9.61719, -4, 9, -5.5, 8.27344, -7, 7, -7.80612, 6.16602, -8.63281, 5.01563, -9.08882, 4.02258, -9.65625, 2.54688, -9.8798, 1.30942, -10, 0, -9.91072, -1.33959, -9.67969, -2.54688, -9.12485, -4.06443, -8.39844, -5.50781, -7.09375, -7.07813, -5.9375, -8.13281, -4.27344, -9.10156, -2.07813, -9.85156, 0, -10.0625, 1.39063, -10, 2.62069, -9.73401, 5, -9, 6.93413, -7.39373, 8.2013, -6.03241, 8.93715, -4.8351, 9.41874, -3.67624, 9.73351, -2.56313)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_j5jvn")
+}
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_j5jvn")
