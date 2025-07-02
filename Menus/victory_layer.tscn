@@ -1,0 +1,42 @@
+[gd_scene load_steps=2 format=3 uid="uid://51k38a5hm1rk"]
+
+[ext_resource type="Script" uid="uid://ddx28ww2ds70u" path="res://Menus/victory_layer.gd" id="1_5a3m3"]
+
+[node name="CanvasLayer" type="CanvasLayer"]
+script = ExtResource("1_5a3m3")
+
+[node name="Label" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -113.5
+offset_top = -24.0
+offset_right = 115.5
+offset_bottom = 25.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 14
+text = "La sofferenza non ha mai fine
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -61.5
+offset_top = 9.0
+offset_right = 62.5
+offset_bottom = 36.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/outline_size = 5
+text = "mordi zio mordi"
+horizontal_alignment = 1
+vertical_alignment = 1

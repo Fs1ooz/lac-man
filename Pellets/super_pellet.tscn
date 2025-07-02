@@ -6,7 +6,7 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_mohuy"]
 radius = 4.0
 
-[node name="SuperPellet" type="Area2D"]
+[node name="SuperPellet" type="Area2D" groups=["Pellet"]]
 script = ExtResource("1_mohuy")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

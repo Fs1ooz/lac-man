@@ -4,9 +4,9 @@
 [ext_resource type="Texture2D" uid="uid://cbkusf288aqjh" path="res://Pellets/pellets.png" id="1_tbe2t"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_2imoo"]
-radius = 2.0
+radius = 1.0
 
-[node name="Pellet" type="Area2D"]
+[node name="Pellet" type="Area2D" groups=["Pellet"]]
 script = ExtResource("1_2imoo")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

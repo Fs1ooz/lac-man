@@ -6,17 +6,23 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_a5wx3"]
 radius = 4.78202
 
-[node name="CowGhost" type="CharacterBody2D" groups=["Ghost"]]
+[node name="CowGhost" type="Area2D" groups=["Ghost"]]
 collision_layer = 2
 script = ExtResource("1_ybl04")
+ghost_type = 1
+ghost_name = "Mucca"
+ghost_color = Color(0, 0.597489, 0.365856, 1)
+frightened_speed = 80
+scatter_duration = 10.0
+spawn_delay = 10.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_a5wx3")
 
 [node name="Immagine2025-07-01124807196-removebg-preview" type="Sprite2D" parent="."]
 position = Vector2(0.455466, 0.0810702)
 scale = Vector2(0.0318572, 0.0326707)
 texture = ExtResource("2_4rk20")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_a5wx3")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 path_desired_distance = 5.0

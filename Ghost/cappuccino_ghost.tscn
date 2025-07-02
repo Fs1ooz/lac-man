@@ -1,6 +1,27 @@
-[gd_scene load_steps=2 format=3 uid="uid://cjcsjnamqt4ew"]
+[gd_scene load_steps=4 format=3 uid="uid://cjcsjnamqt4ew"]
 
 [ext_resource type="Script" uid="uid://bhccg10naxdlc" path="res://Ghost/Cappuccino.gd" id="1_6g4mk"]
+[ext_resource type="Texture2D" uid="uid://dhriu5fpcsdkj" path="res://Ghost/immagine_2025-07-01_205259043-removebg-preview.png" id="2_jg3fj"]
 
-[node name="Cappuccino" type="CharacterBody2D"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_jg3fj"]
+radius = 4.78202
+
+[node name="CappuccinoGhost" type="Area2D" groups=["Ghost"]]
 script = ExtResource("1_6g4mk")
+ghost_type = 2
+ghost_name = "Cappuccio"
+ghost_color = Color(0.6667, 0.310661, 1, 1)
+spawn_delay = 5.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_jg3fj")
+
+[node name="Cappuc" type="Sprite2D" parent="."]
+position = Vector2(0.0196643, 0.000639856)
+scale = Vector2(0.0188029, 0.0185497)
+texture = ExtResource("2_jg3fj")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+path_desired_distance = 5.0
+target_desired_distance = 5.0
+path_postprocessing = 1

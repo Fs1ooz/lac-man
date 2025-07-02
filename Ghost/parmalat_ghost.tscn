@@ -1,15 +1,18 @@
 [gd_scene load_steps=4 format=3 uid="uid://dppcjpbeel8ql"]
 
-[ext_resource type="Script" uid="uid://b6ogji36ej7th" path="res://Ghost/ghost.gd" id="1_cpw12"]
+[ext_resource type="Script" uid="uid://dduey4i1dmpj2" path="res://Ghost/parmalat_ghost.gd" id="1_cpw12"]
 [ext_resource type="Texture2D" uid="uid://kwt2av1rrkbd" path="res://Ghost/Parmalat_logo_2.png" id="2_jq76x"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mgasm"]
 radius = 4.78202
 
-[node name="Parmalat" type="CharacterBody2D" groups=["Ghost"]]
+[node name="ParmalatGhost" type="Area2D" node_paths=PackedStringArray("sprite") groups=["Ghost"]]
 collision_layer = 2
 script = ExtResource("1_cpw12")
-metadata/_custom_type_script = "uid://b6ogji36ej7th"
+ghost_name = "Parmalat"
+speed = 25
+chase_duration = 10.0
+sprite = NodePath("ParmalatLogo2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_mgasm")

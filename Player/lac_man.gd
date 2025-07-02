@@ -1,7 +1,6 @@
 extends CharacterBody2D
 class_name Player
 
-
 enum PlayerState {
 	IDLE,
 	MOVE,
@@ -9,29 +8,29 @@ enum PlayerState {
 	POWER_UP,
 }
 
-@export var starting_scale: = Vector2(0.8, 0.8)
+@export var starting_scale := Vector2(0.8, 0.8)
 @export var collision: CollisionShape2D
-@export var animation_player: AnimationPlayer
-
+@export var sprite_open: Polygon2D
+@export var sprite_closed: Polygon2D
+@export var sfx: AudioStreamPlayer2D
+@export var speed: int = 35
+@export var power_up_speed = 60
 
 var eating = false
 
-var speed: int = 30
 var movement_direction: Vector2 = Vector2.ZERO
 var current_state := PlayerState.IDLE
-
 var animation_timer: float = 0.0
-var animation_speed: float = 0.2
+var animation_speed: float = 0.1
 var mouth_open: bool = true
+var original_color: Color = modulate
 
-@onready var audio_stream_player_2d: AudioStreamPlayer2D = $AudioStreamPlayer2D
-@onready var giulia_open: Polygon2D = $GiuliaOpen
-@onready var giulia_closed: Polygon2D = $GiuliaClosed
+@onready var no_lattosio: Sprite2D = $NoLattosio
 
 func _ready() -> void:
 	Globals.connect("eaten", waka)
 	await get_tree().create_timer(4.10).timeout
-	current_state = PlayerState.MOVE
+	change_state(PlayerState.MOVE)
 
 func _physics_process(delta: float) -> void:
 	if movement_direction != Vector2.ZERO:
@@ -39,9 +38,9 @@ func _physics_process(delta: float) -> void:
 		velocity = movement_direction * speed
 		move_and_slide()
 		player_animation(delta)
-		if eating == true:
-			await waka()
-		print(eating)
+
+		if eating:
+			waka()
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey and event.is_pressed() and not event.is_echo():
@@ -56,20 +55,22 @@ func _input(event: InputEvent) -> void:
 				movement_direction = Vector2.RIGHT
 
 func player_animation(delta: float):
-	if current_state == PlayerState.MOVE:
+	var current_animation_speed = animation_speed
+	if current_state == PlayerState.POWER_UP:
+		current_animation_speed = animation_speed / 2
+
+	if current_state == PlayerState.MOVE or current_state == PlayerState.POWER_UP:
 		animation_timer += delta
-		if animation_timer >= animation_speed:
+		if animation_timer >= current_animation_speed:
 			animation_timer = 0.0
 			mouth_open = !mouth_open
-			giulia_open.visible = mouth_open
-			giulia_closed.visible = not mouth_open
-			#if audio_stream_player_2d.playing:
-				#return
-			#audio_stream_player_2d.play()
+			sprite_open.visible = mouth_open
+			sprite_closed.visible = not mouth_open
 
 func player_rotation(current_direction):
 	rotation_degrees = 0
 	scale = starting_scale
+
 	match current_direction:
 		Vector2.RIGHT:
 			pass
@@ -80,28 +81,53 @@ func player_rotation(current_direction):
 		Vector2.DOWN:
 			rotation_degrees = 90
 
+func change_state(new_state: PlayerState):
+	current_state = new_state
+
+	match current_state:
+		PlayerState.IDLE:
+			modulate = original_color
+			sfx.pitch_scale = 1.0
+			speed = 0
+		PlayerState.MOVE:
+			modulate = original_color
+			no_lattosio.show()
+			sfx.pitch_scale = 1.0
+			speed = 35
+		PlayerState.DEATH:
+			speed = 2
+		PlayerState.POWER_UP:
+			modulate = Color.CORNSILK
+			self_modulate = Color.CORNSILK
+			no_lattosio.hide()
+			sfx.pitch_scale = 2.0
+			speed = power_up_speed
 
 func waka():
-	if audio_stream_player_2d.playing:
+	if sfx.playing:
 		return
-	audio_stream_player_2d.play()
-	await audio_stream_player_2d.finished
+
+	sfx.play()
+	await sfx.finished
 	eating = false
-	return
 
 func death():
-	current_state = PlayerState.DEATH
-	speed = 2
-	animation_player.play("death")
-	await animation_player.animation_finished
+	change_state(PlayerState.DEATH)
+	scale = starting_scale
+
+	var tween = create_tween()
+	tween.tween_property(self, "scale", Vector2(0.001, 0.001), 0.5)
+	await tween.finished
+
 	process_mode = ProcessMode.PROCESS_MODE_DISABLED
 	Globals.restart_game()
 
 func power_up():
-	current_state = PlayerState.POWER_UP
-	speed = 45
+	change_state(PlayerState.POWER_UP)
+
 	var ghosts = get_tree().get_nodes_in_group("Ghost")
 	for ghost in ghosts:
 		ghost.set_frightened()
-	await get_tree().create_timer(10).timeout
-	speed = 40
+
+	await get_tree().create_timer(20).timeout
+	change_state(PlayerState.MOVE)
