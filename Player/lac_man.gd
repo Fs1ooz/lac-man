@@ -14,7 +14,7 @@ enum PlayerState {
 @export var sprite_closed: Polygon2D
 @export var sfx: AudioStreamPlayer2D
 @export var speed: int = 35
-@export var power_up_speed = 60
+@export var power_up_speed = 45
 
 var eating = false
 
@@ -129,5 +129,5 @@ func power_up():
 	for ghost in ghosts:
 		ghost.set_frightened()
 
-	await get_tree().create_timer(20).timeout
+	await get_tree().create_timer(10).timeout
 	change_state(PlayerState.MOVE)

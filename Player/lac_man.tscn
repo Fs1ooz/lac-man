@@ -17,7 +17,6 @@ collision = NodePath("GiuliaCollision")
 sprite_open = NodePath("PacOpen")
 sprite_closed = NodePath("PacClosed")
 sfx = NodePath("AudioStreamPlayer2D")
-speed = 50
 
 [node name="GiuliaCollision" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_7yd3f")
@@ -36,6 +35,8 @@ stream = ExtResource("2_j5jvn")
 [node name="Polygon2D" type="Polygon2D" parent="."]
 
 [node name="NoLattosio" type="Sprite2D" parent="."]
-position = Vector2(-5.66699, -2.98023e-08)
-scale = Vector2(0.024022, 0.0249065)
+z_index = 1
+texture_filter = 2
+position = Vector2(-6, 0)
+scale = Vector2(0.0213053, 0.022168)
 texture = ExtResource("3_mlb6v")

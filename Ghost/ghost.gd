@@ -164,7 +164,7 @@ func _process(delta):
 			target_pos = home_position
 			current_speed = eaten_speed  # Non rallentare quando eaten
 			# Controlla se è tornato a casa
-			if global_position.distance_to(home_position) < 5:
+			if global_position.distance_to(home_position) < 1:
 				change_state(GhostStates.CHASE)
 
 	# Navigazione

@@ -10,7 +10,8 @@ radius = 4.78202
 collision_layer = 2
 script = ExtResource("1_cpw12")
 ghost_name = "Parmalat"
-speed = 25
+speed = 28
+eaten_speed = 30
 chase_duration = 10.0
 sprite = NodePath("ParmalatLogo2")
 
